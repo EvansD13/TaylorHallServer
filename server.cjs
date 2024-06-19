@@ -21,13 +21,14 @@ let transporter = nodemailer.createTransport({
 
 app.get("/", (req, res) => res.send("Express"))
 
-app.post('/mail', async (req,res) => {
+app.post('/mail', (req,res) => {
     const customer = {
         email: req.body.email,
         name: req.body.name,
         number: req.body.number,
         comments: req.body.comments
     }
+    console.log(customer)
 
   let mailOptions = {
     from: 'taylorhall.message@gmail.com',
