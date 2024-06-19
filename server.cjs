@@ -3,6 +3,8 @@ const app = express()
 const nodemailer=require('nodemailer')
 require('dotenv').config()
 
+app.use(express.json())
+
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     host: "smtp.gmail.com",
@@ -22,7 +24,6 @@ let transporter = nodemailer.createTransport({
 app.get("/", (req, res) => res.send("Express"))
 
 app.post('/mail', (req,res) => {
-    console.log(req)
 
     const customer = {
         email: req.body.email,
