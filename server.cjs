@@ -22,7 +22,7 @@ let transporter = nodemailer.createTransport({
 app.get("/", (req, res) => res.send("Express"))
 
 app.post('/mail', (req,res) => {
-    console.log(req.body)
+    console.log(req)
 
     const customer = {
         email: req.body.email,
@@ -32,23 +32,23 @@ app.post('/mail', (req,res) => {
     }
     console.log(customer)
 
-//   let mailOptions = {
-//     from: 'taylorhall.message@gmail.com',
-//     to: 'david@evanstmd.plus.com',
-//     subject: `Customer Enquiry: ${customer.name}`,
-//     html: `<p>Customer Name: ${customer.name}</p>
-//     <br/><p>Customer Email: ${customer.email}</p>
-//     <br/><p> Customer Phone Number: ${customer.number}</p>
-//     ${customer.comments===""? "" : `<br/><p>Comments: ${customer.comments}</p>`}`
-//   };
+  let mailOptions = {
+    from: 'taylorhall.message@gmail.com',
+    to: 'david@evanstmd.plus.com',
+    subject: `Customer Enquiry: ${customer.name}`,
+    html: `<p>Customer Name: ${customer.name}</p>
+    <br/><p>Customer Email: ${customer.email}</p>
+    <br/><p> Customer Phone Number: ${customer.number}</p>
+    ${customer.comments===""? "" : `<br/><p>Comments: ${customer.comments}</p>`}`
+  };
   
-//   transporter.sendMail(mailOptions, function(err, data) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log("Email sent successfully");
-//     }
-//   });
+  transporter.sendMail(mailOptions, function(err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Email sent successfully");
+    }
+  });
 })
 
 app.listen(3001, () => console.log("Server ready on port 3001"))
