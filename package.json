@@ -7,7 +7,7 @@
     "node": "14.x"
   },
   "scripts": {
-    "build": "node ./server.js",
+    "build": "node ./server.cjs",
     "dev": "nodemon ./server.cjs"
   },
   "dependencies": {
