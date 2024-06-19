@@ -4,11 +4,7 @@ const nodemailer = require('nodemailer')
 require('dotenv').config()
 
 app.use(express.json())
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://taylor-hall-server-bailey-and-evans-web-solutions.vercel.app/mail")
-    res.setHeader("Access-Control-Allow-Methods", "POST");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type")
-})
+
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
