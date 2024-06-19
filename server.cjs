@@ -48,6 +48,7 @@ app.post('/mail', (req,res) => {
       console.log(err);
     } else {
       console.log("Email sent successfully");
+      res.status(200).json(data)
     }
   });
 })
