@@ -3,11 +3,7 @@ const app = express()
 const nodemailer=require('nodemailer')
 require('dotenv').config()
 
-app.get("/", (req, res) => res.send("Express"))
-
-app.post('/mail',(req,res)=>{
-
-  let transporter = nodemailer.createTransport({
+let transporter = nodemailer.createTransport({
     service: 'gmail',
     host: "smtp.gmail.com",
     port:465,
@@ -22,11 +18,25 @@ app.post('/mail',(req,res)=>{
     }
   });
 
+
+app.get("/", (req, res) => res.send("Express"))
+
+app.post('/mail', async (req,res) => {
+    const customer = {
+        email: req.body.email,
+        name: req.body.name,
+        number: req.body.number,
+        comments: req.body.comments
+    }
+
   let mailOptions = {
     from: 'taylorhall.message@gmail.com',
     to: 'david@evanstmd.plus.com',
-    subject: 'test email',
-    text: 'test email test email'
+    subject: `Customer Enquiry: ${customer.name}`,
+    html: `<p>Customer Name: ${customer.name}</p>
+    <br/><p>Customer Email: ${customer.email}</p>
+    <br/><p> Customer Phone Number: ${customer.number}</p>
+    ${customer.comments===""? "" : `<br/><p>Comments: ${customer.comments}</p>`}`
   };
   
   transporter.sendMail(mailOptions, function(err, data) {
