@@ -17,6 +17,7 @@
     "dotenv": "^16.4.5",
     "eslint-config-next": "^14.2.4",
     "express": "^4.19.2",
+    "http": "^0.0.1-security",
     "next": "^14.2.3",
     "nodemailer": "^6.9.13",
     "nodemon": "^3.1.3",

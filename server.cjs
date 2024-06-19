@@ -9,6 +9,7 @@ app.post('/mail',(req,res)=>{
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',
+    host: "smtp.gmail.com",
     port:465,
     secure: true,
     auth: {
@@ -23,11 +24,11 @@ app.post('/mail',(req,res)=>{
 
   let mailOptions = {
     from: 'taylorhall.message@gmail.com',
-    to: 'joeybailey1000@gmail.com',
+    to: 'david@evanstmd.plus.com',
     subject: 'test email',
     text: 'test email test email'
   };
-
+  
   transporter.sendMail(mailOptions, function(err, data) {
     if (err) {
       console.log(err);
