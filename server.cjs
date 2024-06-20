@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer')
 require('dotenv').config()
 
 app.use(express.json())
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://taylor-hall-server-bailey-and-evans-web-solutions.vercel.app/mail",);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -28,7 +29,7 @@ let transporter = nodemailer.createTransport({
 
 app.get("/", (req, res) => res.send("Express"))
 
-app.post('/mail', (req, res) => {
+app.post('/mail', async (req, res) => {
 
     const customer = {
         email: req.body.email,
