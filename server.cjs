@@ -43,7 +43,7 @@ app.post('/mail', async (req, res) => {
 
     let mailOptions = {
         from: 'taylorhall.message@gmail.com',
-        to: 'david@evanstmd.plus.com',
+        to: 'joebailey1000@hotmail.co.uk',
         subject: `Customer Enquiry: ${customer.name}`,
         html: `<p>Customer Name: ${customer.name}</p>
     <br/><p>Customer Email: ${customer.email}</p>
