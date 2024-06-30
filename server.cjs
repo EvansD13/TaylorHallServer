@@ -12,8 +12,6 @@ app.use((req, res, next) => {
     next();
   });
 
-  /// Comment
-
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     host: "smtp.gmail.com",
