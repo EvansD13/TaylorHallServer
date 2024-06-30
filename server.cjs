@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express()
 const nodemailer = require('nodemailer')
+const axios = require('axios')
 require('dotenv').config()
 
 app.use(express.json())
@@ -57,6 +58,16 @@ app.post('/mail', async (req, res) => {
             res.status(200).json(data)
         }
     });
+})
+
+app.get('/reviews', (req, res)=>{
+  axios.get('https://places.googleapis.com/v1/places/ChIJM09GQ_dgfkgRPFJsTLkMmFE?key=AIzaSyAIxD9aaF2hOPX62rTBM62pXqMKOSVDQ3Q',{
+    headers:{
+      'X-Goog-FieldMask': 'rating,reviews,userRatingCount'
+    }
+  })
+    .then(({data})=>res.send(data).status(200))
+    .catch((err)=>res.send(err).status(400))
 })
 
 app.listen(3001, () => console.log("Server ready on port 3001"))
