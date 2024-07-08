@@ -32,24 +32,17 @@ app.get("/", (req, res) => res.send("Express"))
 
 app.post('/mail', async (req, res) => {
 
-    const customer = {
-        email: req.body.email,
-        name: req.body.name,
-        number: req.body.number,
-        comments: req.body.comments
-    }
-    console.log(customer)
-
+    const {email, name, number, comments, preApprove} = req.body
+    
     let mailOptions = {
         from: 'taylorhall.message@gmail.com',
-        to: 'enquiries@taylor-hall.co.uk',
-        subject: `Customer Enquiry: ${customer.name}`,
-        html: `<p>Customer Name: ${customer.name}</p>
-    <br/><p>Customer Email: ${customer.email}</p>
-    <br/><p> Customer Phone Number: ${customer.number}</p>
-    ${customer.comments === "" ? "" : `<br/><p>Comments: ${customer.comments}</p>`}`
+        to: "david@evanstmd.plus.com",//'enquiries@taylor-hall.co.uk',
+        subject: `${preApprove ? "Pre-Approval Request" : "Customer Enquiry" }: ${name}`,
+        html: `<p>Customer Name: ${name}</p>
+    <br/><p>Customer Email: ${email}</p>
+    <br/><p> Customer Phone Number: ${number}</p>
+    ${comments === "" ? "" : `<br/><p>Comments: ${comments}</p>`}`
     };
-
     transporter.sendMail(mailOptions, function (err, data) {
         if (err) {
             console.log(err);
