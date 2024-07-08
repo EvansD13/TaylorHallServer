@@ -36,7 +36,7 @@ app.post('/mail', async (req, res) => {
     
     let mailOptions = {
         from: 'taylorhall.message@gmail.com',
-        to: "david@evanstmd.plus.com",//'enquiries@taylor-hall.co.uk',
+        to: 'enquiries@taylor-hall.co.uk',//"david@evanstmd.plus.com"
         subject: `${preApprove ? "Pre-Approval Request" : "Customer Enquiry" }: ${name}`,
         html: `<p>Customer Name: ${name}</p>
     <br/><p>Customer Email: ${email}</p>
