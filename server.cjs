@@ -16,17 +16,17 @@ app.use((req, res, next) => {
 
 app.get("/not-found", (req, res) => res.status(404).send("Not Found"))
 
-let now = new Date()
-let nextMonday = new Date()
-nextMonday.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7))
-nextMonday.setHours(0)
-nextMonday.setMinutes(0)
-nextMonday.setSeconds(0)
-nextMonday.setMilliseconds(0)
-setTimeout(() => {
-  collectReviews()
-  setInterval(collectReviews,1000*60*60*24*7)
-}, nextMonday - now)
+// let now = new Date()
+// let nextMonday = new Date()
+// nextMonday.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7))
+// nextMonday.setHours(0)
+// nextMonday.setMinutes(0)
+// nextMonday.setSeconds(0)
+// nextMonday.setMilliseconds(0)
+// setTimeout(() => {
+//   collectReviews()
+//   setInterval(collectReviews,1000*60*60*24*7)
+// }, nextMonday - now)
 
 
 let transporter = nodemailer.createTransport({
