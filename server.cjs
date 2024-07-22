@@ -3,7 +3,7 @@ const app = express()
 const nodemailer = require('nodemailer')
 const axios = require('axios')
 const cors = require("cors")
-const { collectReviews } = require('./database/supabase.cjs')
+//const { collectReviews } = require('./database/supabase.cjs')
 
 app.use(express.json())
 app.use(cors())
