@@ -4,6 +4,7 @@ require("dotenv").config()
 //comment
 const supabase = createClient(process.env.DB_URL, process.env.POSTGRESQL_PUBLIC)
 
+
 async function collectReviews() {
   let res = await supabase.auth.signInWithPassword({
     email: 'joebailey1000@hotmail.co.uk',
@@ -117,8 +118,6 @@ function relativiseDate(e) {
 
   e.upload_date = returnString
 }
-
-deliverReviews()
 
 module.exports = { collectReviews, deliverReviews }
 // process.env.POSTGRESQL_PUBLIC
