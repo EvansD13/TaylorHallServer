@@ -3,7 +3,7 @@ const app = express()
 const nodemailer = require('nodemailer')
 const axios = require('axios')
 const cors = require("cors")
-const { collectReviews } = require('./database/supabase.cjs')
+const { collectReviews, deliverReviews } = require('./database/supabase.cjs')
 
 app.use(express.json())
 app.use(cors())
@@ -72,13 +72,25 @@ app.post('/mail', async (req, res) => {
 })
 // comment
 app.get('/reviews', (req, res) => {
-  axios.get('https://places.googleapis.com/v1/places/ChIJM09GQ_dgfkgRPFJsTLkMmFE?key=AIzaSyAIxD9aaF2hOPX62rTBM62pXqMKOSVDQ3Q', {
-    headers: {
-      'X-Goog-FieldMask': 'rating,reviews,userRatingCount'
-    }
-  })
-    .then(({ data }) => res.send(data).status(200))
-    .catch((err) => res.send(err).status(400))
+  
+  deliverReviews()
+    .then((data)=>{
+      res.status(200).send({
+        reviews: data.map(({author,body,upload_date,img_url,rating})=>{
+          return {
+            rating,
+            text: {
+              text: body
+            },
+            authorAttribution: {
+              displayName: author,
+              photoUri: img_url
+            },
+            relativePublishTimeDescription: upload_date
+          }
+        })
+      })
+    }).catch((err) => res.send(err).status(400))
 })
 
 app.listen(3001, () => console.log("Server ready on port 3001"))
