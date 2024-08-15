@@ -58,6 +58,9 @@ async function deliverReviews() {
     .eq('rating', 5)
     .not('body', 'is', null)
     .order('id', { random: false })
+  
+  let userRatingCount = reviews.data.length
+  let rating = reviews.data.reduce((acc,curr)=>acc+curr.rating,0)/reviews.data.length
 
   let returnReviews = []
   for (let i = 0; i < 5; i++) {
@@ -68,9 +71,10 @@ async function deliverReviews() {
 
   returnReviews.forEach(relativiseDate)
   return {
-    rating:reviews.reduce((acc,curr)=>acc+curr.rating,0)/reviews.length,
+    rating,
     reviews:returnReviews,
-    userRatingCount: reviews.length}
+    userRatingCount
+  }
 }
 
 function relativiseDate(e) {
