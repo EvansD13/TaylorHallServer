@@ -35,7 +35,10 @@ async function collectReviews() {
       ])
 
     }).then(([{ data, error }, parsedReviews]) => {
-
+      console.log(`inserted ${parsedReviews.filter((e) => {
+        return !data.some((f) => f.body === e.body
+        )
+      }).length} new reviews`)
       return supabase
         .from('Reviews')
         .insert(parsedReviews.filter((e) => {
@@ -45,7 +48,6 @@ async function collectReviews() {
 
     })
     .catch((err) => console.log(err))
-  x
 }
 
 async function deliverReviews() {
