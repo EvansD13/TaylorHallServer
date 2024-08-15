@@ -3,7 +3,6 @@ const app = express()
 const nodemailer = require('nodemailer')
 const axios = require('axios')
 const cors = require("cors")
-const { collectReviews } = require('./database/supabase.cjs')
 
 app.use(express.json())
 app.use(cors())
@@ -13,6 +12,11 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+
+const { collectReviews } = require('./database/supabase.cjs')
+
+
 
 //comment
 
