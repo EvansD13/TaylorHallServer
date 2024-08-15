@@ -85,7 +85,6 @@ app.get("/not-found", (req, res) => res.status(404).send("Not Found"))
 
 
 module.exports = app
-const { collectReviews } = require('./database/supabase.cjs')
 
 
 
