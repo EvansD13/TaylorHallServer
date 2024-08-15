@@ -1,7 +1,7 @@
 const { createClient, auth } = require('@supabase/supabase-js')
 const axios = require('axios')
 require("dotenv").config()
-
+//comment
 const supabase = createClient(process.env.DB_URL, process.env.POSTGRESQL_PUBLIC)
 
 async function collectReviews() {
