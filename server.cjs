@@ -59,9 +59,9 @@ app.post('/mail', async (req, res) => {
 app.get('/reviews', (req, res) => {
   
   deliverReviews()
-    .then((data)=>{
+    .then(({reviews,userRatingCount,rating})=>{
       res.status(200).send({
-        reviews: data.map(({author,body,upload_date,img_url,rating})=>{
+        reviews: reviews.map(({author,body,upload_date,img_url,rating})=>{
           return {
             rating,
             text: {
@@ -73,7 +73,9 @@ app.get('/reviews', (req, res) => {
             },
             relativePublishTimeDescription: upload_date
           }
-        })
+        }),
+        rating,
+        userRatingCount
       })
     }).catch((err) => res.send(err).status(400))
 })

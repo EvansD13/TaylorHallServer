@@ -67,7 +67,10 @@ async function deliverReviews() {
   }
 
   returnReviews.forEach(relativiseDate)
-  return returnReviews
+  return {
+    rating:reviews.reduce((acc,curr)=>acc+curr.rating,0)/reviews.length,
+    reviews:returnReviews,
+    userRatingCount: reviews.length}
 }
 
 function relativiseDate(e) {
