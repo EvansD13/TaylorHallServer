@@ -60,6 +60,7 @@ app.get('/reviews', (req, res) => {
   
   deliverReviews()
     .then(({reviews,userRatingCount,rating})=>{
+      res.set('Acces-Control-Allow-Origin','https://www.taylor-hall.co.uk')
       res.status(200).send({
         reviews: reviews.map(({author,body,upload_date,img_url,rating})=>{
           return {
