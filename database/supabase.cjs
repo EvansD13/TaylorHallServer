@@ -62,7 +62,7 @@ async function deliverReviews() {
       .eq('rating', 5)
       .not('body', 'is', null)
       .order('id', { random: false })
-      
+
   let allReviews = await supabase
       .from('Reviews')
       .select('*')
@@ -70,7 +70,7 @@ async function deliverReviews() {
 
 
   let userRatingCount = allReviews.data.length
-  let rating = allReviews.data.reduce((acc, curr) => acc + curr.rating, 0) / reviews.data.length
+  let rating = allReviews.data.reduce((acc, curr) => acc + curr.rating, 0) / allReviews.data.length
 
   let returnReviews = []
   for (let i = 0; i < 5; i++) {
