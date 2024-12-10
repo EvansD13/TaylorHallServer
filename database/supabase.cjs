@@ -55,18 +55,19 @@ async function deliverReviews() {
     email: 'joebailey1000@hotmail.co.uk',
     password: 'Tayl0rSeahamH4ll!',
   })
-  let reviews = await Promise.all([
+  let filteredReviews = await 
     supabase
       .from('Reviews')
       .select('*')
       .eq('rating', 5)
       .not('body', 'is', null)
-      .order('id', { random: false }),
-    supabase
+      .order('id', { random: false })
+      
+  let allReviews = await supabase
       .from('Reviews')
       .select('*')
-  ])
-  let [filteredReviews, allReviews] = reviews
+  
+
 
   let userRatingCount = allReviews.data.length
   let rating = allReviews.data.reduce((acc, curr) => acc + curr.rating, 0) / reviews.data.length
