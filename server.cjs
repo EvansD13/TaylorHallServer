@@ -14,7 +14,7 @@ app.use((req, res, next) => {
   next();
 });
 
-setInterval(collectReviews,3600000*24*7)
+setInterval(collectReviews,3600000*24)
 
 let transporter = nodemailer.createTransport({
   service: 'gmail',
