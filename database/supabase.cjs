@@ -55,27 +55,33 @@ async function deliverReviews() {
     email: 'joebailey1000@hotmail.co.uk',
     password: 'Tayl0rSeahamH4ll!',
   })
-  let reviews = await supabase
-    .from('Reviews')
-    .select('*')
-    .eq('rating', 5)
-    .not('body', 'is', null)
-    .order('id', { random: false })
-  
-  let userRatingCount = reviews.data.length
-  let rating = reviews.data.reduce((acc,curr)=>acc+curr.rating,0)/reviews.data.length
+  let reviews = await Promise.all([
+    supabase
+      .from('Reviews')
+      .select('*')
+      .eq('rating', 5)
+      .not('body', 'is', null)
+      .order('id', { random: false }),
+    supabase
+      .from('Reviews')
+      .select('*')
+  ])
+  let [filteredReviews, allReviews] = reviews
+
+  let userRatingCount = allReviews.data.length
+  let rating = allReviews.data.reduce((acc, curr) => acc + curr.rating, 0) / reviews.data.length
 
   let returnReviews = []
   for (let i = 0; i < 5; i++) {
-    let index = Math.floor(Math.random() * reviews.data.length)
-    returnReviews.push(reviews.data[index])
-    reviews.data.splice(index, index + 1)
+    let index = Math.floor(Math.random() * filteredReviews.data.length)
+    returnReviews.push(filteredReviews.data[index])
+    filteredReviews.data.splice(index, index + 1)
   }
 
   returnReviews.forEach(relativiseDate)
   return {
     rating,
-    reviews:returnReviews,
+    reviews: returnReviews,
     userRatingCount
   }
 }
@@ -84,7 +90,7 @@ function relativiseDate(e) {
   let timeStamps = [3600000, 3600000 * 24, 3600000 * 24 * 7, 3600000 * 24 * 30, 3600000 * 24 * 365, Infinity]
   let diff = Date.now() - new Date(e.upload_date)
   let denomIndex = timeStamps.indexOf(
-    timeStamps.find((e,i,a) => e < diff && a[i+1]>diff)
+    timeStamps.find((e, i, a) => e < diff && a[i + 1] > diff)
   )
   let denom
   let quantifier
@@ -106,14 +112,14 @@ function relativiseDate(e) {
       denom = 'year'
       break
     default:
-      returnString='An hour ago'
+      returnString = 'An hour ago'
   }
   if (returnString) return returnString
 
   quantifier = Math.floor(diff / timeStamps[denomIndex])
   if (quantifier === 1) {
     if (denom === 'hour') returnString = 'An hour ago'
-    else returnString = 'A '+denom+' ago'
+    else returnString = 'A ' + denom + ' ago'
   } else {
     returnString = `${quantifier} ${denom}s ago`
   }
